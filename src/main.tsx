@@ -8,10 +8,20 @@ import { routeTree } from './routeTree.gen'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false
+    }
+  }
+})
+
 // Create a new router instance
 const router = createRouter({
   routeTree,
-  context: {},
+  context: { queryClient },
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,
@@ -30,9 +40,11 @@ const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-    <StrictMode>
-      <RouterProvider router={router} />
-    </StrictMode>,
+    <QueryClientProvider client={queryClient}>
+      <StrictMode>
+        <RouterProvider router={router} />
+      </StrictMode>
+    </QueryClientProvider>
   )
 }
 
