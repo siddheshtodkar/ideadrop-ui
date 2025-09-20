@@ -10,3 +10,7 @@ export const fetchIdea = async (ideaId: string): Promise<Idea> => {
   const res = await api.get(`/ideas/${ideaId}`)
   return res.data
 }
+
+export const deleteIdea = async (ideaId: string): Promise<void> => {
+  await api.delete(`/ideas/${ideaId}`)
+}
