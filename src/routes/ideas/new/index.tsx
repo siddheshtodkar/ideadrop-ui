@@ -37,6 +37,9 @@ function NewIdeaPage() {
   }
 
   return <div className='space-y-4'>
+    <div className="flex justify-between items-center mb-4">
+      <h1 className="text-2xl font-bold">Create New Idea</h1>
+    </div>
     <form className="space-y-2" onSubmit={handleSubmit}>
       <div className="">
         <label htmlFor="title" className='block text-gray-700 font-medium mb-1'>Title</label>
