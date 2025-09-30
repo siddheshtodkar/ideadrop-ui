@@ -5,7 +5,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 
 const ideasQueryOptions = () => queryOptions({
   queryKey: ['ideas'],
-  queryFn: fetchIdeas
+  queryFn: () => fetchIdeas()
 })
 
 export const Route = createFileRoute('/ideas/')({
@@ -23,16 +23,13 @@ export const Route = createFileRoute('/ideas/')({
 })
 
 function IdeasPage() {
-  const { data } = useSuspenseQuery(ideasQueryOptions())
-  const ideas = [...data].sort((a, b) => {
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  })
+  const { data: ideas } = useSuspenseQuery(ideasQueryOptions())
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Ideas</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {ideas.map(idea => (
-          <IdeaCard key={idea.id} idea={idea} />
+          <IdeaCard key={idea._id} idea={idea} />
         ))}
       </div>
     </div>
