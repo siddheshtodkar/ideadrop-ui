@@ -1,4 +1,5 @@
 import { refreshAccessToken } from "@/api/auth"
+import { setOldAcccessToken } from "@/lib/accessToken"
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 
 type AuthContextType = {
@@ -25,6 +26,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     loadAuth()
   }, [])
+  useEffect(() => {
+    setOldAcccessToken(accessToken)
+  }, [accessToken])
   return (
     <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser }}>
       {children}
